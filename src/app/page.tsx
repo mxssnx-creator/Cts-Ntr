@@ -99,7 +99,12 @@ export default async function Home() {
 }
 
 async function getDashboardData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'}/api/dashboard`);
-  if (!res.ok) return null;
-  return res.json();
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'}/api/dashboard`);
+    if (!res.ok) return null;
+    return res.json();
+  } catch (error) {
+    console.warn('Failed to fetch dashboard data:', error);
+    return null;
+  }
 }
