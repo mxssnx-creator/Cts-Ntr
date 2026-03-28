@@ -12,16 +12,16 @@ export async function initializeDatabase() {
     // Check if we have any users, if not create a default one
     const userCount = dbService.rawDB().prepare('SELECT COUNT(*) as count FROM users').get() as { count: number };
     if (userCount.count === 0) {
-      const passwordHash = await hash('password', 10);
+      const passwordHash = await hash('00998877', 10);
       dbService.rawDB().prepare(
         `INSERT INTO users (id, email, name, password_hash) VALUES (?, ?, ?, ?)`
       ).run(
         randomUUID(),
-        'admin@example.com',
-        'Admin',
+        'mxssnx@gmail.com',
+        'MXSSNX Creator',
         passwordHash
       );
-      console.log('Default user created: admin@example.com / password');
+      console.log('Default user created: mxssnx@gmail.com / 00998877');
     }
     console.log('Database initialized successfully');
   } catch (error) {
