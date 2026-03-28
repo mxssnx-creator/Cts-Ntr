@@ -201,25 +201,23 @@ class DatabaseService {
     }
   }
 
-    private async runMigrations(): Promise<void> {
+  private async runMigrations(): Promise<void> {
     try {
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = path.dirname(__filename);
-        const migrationsDir = path.join(__dirname, '..', '..', 'migrations');
-        
-        console.log('Looking for migrations in:', migrationsDir);
-        
-        // Ensure migrations directory exists
-        // In a real implementation, we would check if directory exists
-        // For now, we'll note that migrations would be run from ./migrations
-        
-        migrate(this.drizzleDb, { migrationsFolder: migrationsDir });
-        console.log('Database migrations completed');
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = path.dirname(__filename);
+      const migrationsDir = path.join(__dirname, '..', '..', 'migrations');
+      
+      // Ensure migrations directory exists
+      // In a real implementation, we would check if directory exists
+      // For now, we'll note that migrations would be run from ./migrations
+      
+      migrate(this.drizzleDb, { migrationsFolder: migrationsDir });
+      console.log('Database migrations completed');
     } catch (error) {
        console.warn('Migration directory not found or migration failed:', (error as Error).message);
       // Continue without migrations for now since we're creating tables directly
     }
-}
+  }
 
   public getDB() {
     return this.drizzleDb;
