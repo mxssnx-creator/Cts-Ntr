@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { initializeDatabase } from "@/lib/initDb";
+
+// Initialize database on first layout render
+// This runs only once per server instance in development
+let dbInitialized = false;
+if (!dbInitialized) {
+  initializeDatabase().catch(console.error);
+  dbInitialized = true;
+}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +22,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js Template",
-  description: "A minimal Next.js starter template",
+  title: "CTS - Crypto Trading Dashboard",
+  description: "Professional automated cryptocurrency trading platform",
 };
 
 export default function RootLayout({
